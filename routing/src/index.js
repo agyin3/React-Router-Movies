@@ -20,7 +20,7 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route path="/movies" component={Movies} />
-        <Route path="/" component={App} />
+        <Route path="/" component={App} exact />
       </Switch>
     </Router>
   </Provider>,

@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getMovies } from './actions';
-
+import { fetchData } from './actions';
+import { bindActionCreators } from 'redux';
 class Movies extends Component {
   constructor(props) {
     super(props);
-    this.props.getMovies();
+    this.props.fetchData();
   }
   render() {
     return(
       <div className="movies">
         <ul>
-          {Object.keys(this.props.movies).forEach((key, i) => {
+          {Object.keys(this.props.film).forEach((key, i) => {
             return(
               <li>
-                <Link to={`/movies/${this.props.movies[key].title}`}> {this.props.movies[key].title} </Link>  
+                <Link to={`/movies/${this.props.film[key].title}`}> {this.props.film[key].title} </Link>  
               </li>
               );
           })}
@@ -27,8 +27,10 @@ class Movies extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    movies: state.movies,
+    film: state.movies,
   };
 };
-
-export default connect(mapStateToProps, { getMovies })(Movies);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({fetchFilm: getMovies}, dispatch);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);
